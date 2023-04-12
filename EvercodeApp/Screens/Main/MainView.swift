@@ -6,7 +6,7 @@ final class MainView: UIView {
        
         let view = UITableView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.register(UITableViewCell.self, forCellReuseIdentifier: "DefaultCell")
+        view.register(UITableViewCell.self, forCellReuseIdentifier: "cellReuseIdentifier")
         view.delegate = self
         view.dataSource = self
         return view
@@ -67,7 +67,8 @@ extension MainView: UITableViewDelegate, UITableViewDataSource {
     // MARK: - DataSource
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCell(withIdentifier: "DefaultCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cellReuseIdentifier", for: indexPath)
+        cell.textLabel?.text = items[indexPath.row]
         return cell
     }
     
