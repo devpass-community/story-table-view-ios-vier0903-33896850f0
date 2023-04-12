@@ -6,6 +6,9 @@ final class MainView: UIView {
        
         let view = UITableView()
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.register(UITableViewCell.self, forCellReuseIdentifier: "DefaultCell")
+        view.delegate = self
+        view.dataSource = self
         return view
     }()
     
@@ -56,5 +59,21 @@ private extension MainView {
             tableView.trailingAnchor.constraint(equalTo: trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
+    }
+}
+
+extension MainView: UITableViewDelegate, UITableViewDataSource {
+    
+    // MARK: - DataSource
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        var cell = tableView.dequeueReusableCell(withIdentifier: "DefaultCell", for: indexPath)
+        return cell
+    }
+    
+    // MARK: - Delegate
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return items.count
     }
 }
